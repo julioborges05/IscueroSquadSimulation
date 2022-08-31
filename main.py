@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
         teamsParameters = TeamSpeedController(vision.get_field_data())
 
-        ref_data["game_on"] = True
+        # ref_data["game_on"] = True
 
         if ref_data["game_on"]:
             objectives = Strategy().main_strategy(teamsParameters)
