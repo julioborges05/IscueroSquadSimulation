@@ -4,13 +4,14 @@ from bridge import (NUM_BOTS, Entity)
 
 
 class Strategy:
-    def __init__(self, matchParameters):
+    def __init__(self, matchParameters, selectedStrategy: str):
         self.matchParameters = matchParameters
+        self.defenderRobotCanAttack = False if selectedStrategy == "default" else True
 
     def main_strategy(self):
         robots = [Entity(index=i) for i in range(NUM_BOTS)]
         robots[0] = GoalKeeper(self.matchParameters).setGoalKeeperCoordinates()
-        robots[1] = Defender(self.matchParameters, 1).setDefenderCoordinates()
+        robots[1] = Defender(self.matchParameters, 1, self.defenderRobotCanAttack).setDefenderCoordinates()
         robots[2] = self.setRobotToBallCoordinates(robots[2])
 
         return robots

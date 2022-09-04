@@ -2,7 +2,7 @@ from bridge import (NUM_BOTS, convert_angle)
 from math import pi, fmod, atan2, fabs
 
 
-class TeamsParameters:
+class MatchParameters:
     def __init__(self, field):
         self.__field = field
         self.blueRobotValues = field["blue"]

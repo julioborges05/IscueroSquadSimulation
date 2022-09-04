@@ -1,4 +1,4 @@
-from Controllers.TeamsParameters import TeamsParameters
+from Controllers.MatchParameters import MatchParameters
 from Strategies.MainStrategy import Strategy
 
 from bridge import (Actuator, Replacer, Vision, Referee)
@@ -19,12 +19,12 @@ if __name__ == "__main__":
         ref_data = referee.get_data()
         vision.update()
 
-        teamsParameters = TeamsParameters(vision.get_field_data())
+        teamsParameters = MatchParameters(vision.get_field_data())
 
-        ref_data["game_on"] = True
+        # ref_data["game_on"] = True
 
         if ref_data["game_on"]:
-            objectives = Strategy(teamsParameters).main_strategy()
+            objectives = Strategy(teamsParameters, "default").main_strategy()
             actuator.send_all(teamsParameters.controller(teamsParameters.yellowRobotValues
                                                          if teamsParameters.isYellowTeam
                                                          else teamsParameters.blueRobotValues,
