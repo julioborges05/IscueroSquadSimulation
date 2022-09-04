@@ -1,6 +1,6 @@
-from Parameters.Triangle import Triangle
+from RobotEntities.Defender import Defender
+from RobotEntities.GoalKeeper import GoalKeeper
 from bridge import (NUM_BOTS, Entity)
-from math import atan, tan
 
 
 class Strategy:
@@ -8,12 +8,12 @@ class Strategy:
         self.matchParameters = matchParameters
 
     def main_strategy(self):
-        objectives = [Entity(index=i) for i in range(NUM_BOTS)]
-        self.setGoalKeeperCoordinates(objectives[0])
-        objectives[1] = self.setRobotToBallCoordinates(objectives[1])
-        objectives[2] = self.setRobotToBallCoordinates(objectives[2])
+        robots = [Entity(index=i) for i in range(NUM_BOTS)]
+        robots[0] = GoalKeeper(self.matchParameters).setGoalKeeperCoordinates()
+        robots[1] = Defender(self.matchParameters, 1).setDefenderCoordinates()
+        robots[2] = self.setRobotToBallCoordinates(robots[2])
 
-        return objectives
+        return robots
 
     def setAllBotsToBallCoordinates(self):
         objectives = [Entity(index=i) for i in range(NUM_BOTS)]
@@ -29,37 +29,3 @@ class Strategy:
 
         return robot
 
-    def setGoalKeeperCoordinates(self, goalKeeperRobot):
-        goalKeeperRobot.x = 75 if self.matchParameters.isYellowTeam else -75
-        try:
-            isBallGoingDown = self.matchParameters.ballValues.vy < 0
-            bigTriangle = self.__getBigTriangleValues(isBallGoingDown)
-            smallTriangle = self.__getSmallTriangleValues(bigTriangle)
-
-            goalKeeperRobot.y = self.__getGoalKeeperVerticalValue(isBallGoingDown, smallTriangle.verticalValue)
-            return goalKeeperRobot
-        except ZeroDivisionError:
-            return goalKeeperRobot
-
-    def __getBigTriangleValues(self, isBallGoingDown):
-        ballVelocityAngle = atan(self.matchParameters.ballValues.vx / self.matchParameters.ballValues.vy)
-
-        bigTriangleVerticalValue = self.matchParameters.ballValues.y + (20 if isBallGoingDown else -20)
-        bigTriangleHorizontalValue = tan(ballVelocityAngle) * bigTriangleVerticalValue
-        return Triangle(bigTriangleHorizontalValue, bigTriangleVerticalValue)
-
-    def __getSmallTriangleValues(self, bigTriangle):
-        smallTriangleHorizontalValue = -75 - (self.matchParameters.ballValues.x - bigTriangle.horizontalValue)
-        smallTriangleVerticalValue = (smallTriangleHorizontalValue * bigTriangle.verticalValue) / bigTriangle.horizontalValue
-
-        return Triangle(smallTriangleHorizontalValue, smallTriangleVerticalValue)
-
-    def __getGoalKeeperVerticalValue(self, isBallGoingDown, smallTriangleVerticalValue):
-        robotVerticalPosition = self.matchParameters.ballValues.y if self.matchParameters.ballValues.vx > 0\
-            else (smallTriangleVerticalValue - 20) if isBallGoingDown else (smallTriangleVerticalValue + 20)
-
-        if robotVerticalPosition > 20:
-            return 16.5
-        if robotVerticalPosition < -20:
-            return -16.5
-        return robotVerticalPosition

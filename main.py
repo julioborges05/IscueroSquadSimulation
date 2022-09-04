@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from Controllers.TeamsParameters import TeamsParameters
 from Strategies.MainStrategy import Strategy
 
@@ -22,12 +21,13 @@ if __name__ == "__main__":
 
         teamsParameters = TeamsParameters(vision.get_field_data())
 
-        # ref_data["game_on"] = True
+        ref_data["game_on"] = True
 
         if ref_data["game_on"]:
             objectives = Strategy(teamsParameters).main_strategy()
             actuator.send_all(teamsParameters.controller(teamsParameters.yellowRobotValues
-                                                         if teamsParameters.isYellowTeam else teamsParameters.blueRobotValues,
+                                                         if teamsParameters.isYellowTeam
+                                                         else teamsParameters.blueRobotValues,
                                                          objectives))
 
         elif ref_data["foul"] != 7:
