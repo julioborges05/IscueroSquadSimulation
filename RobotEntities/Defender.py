@@ -26,15 +26,28 @@ class Defender:
 
     def __sendBallToAttackQuadrantStrategy(self, defenderRobot):
 
-        self.sendDefenderRobotToPosition(defenderRobot, self.currentRobotLocation)
+        defenderRobot = self.sendDefenderRobotToInitialPosition(defenderRobot, self.currentRobotLocation)
+
+        if not self.isOutOfTheRange(defenderRobot) and self.matchParameters.ballValues.x > self.currentRobotLocation.x:
+            defenderRobot.x = self.matchParameters.ballValues.x
+            defenderRobot.y = self.matchParameters.ballValues.y
 
         return defenderRobot
 
-    def sendDefenderRobotToPosition(self, defenderRobot, currentRobotLocation):
+    def isOutOfTheRange(self, defenderRobot):
+        if defenderRobot.y - 5 < self.currentRobotLocation.y < defenderRobot.y + 5:
+            return False
+        return True
+
+    def sendDefenderRobotToInitialPosition(self, defenderRobot, currentRobotLocation):
         ballTriangle = Triangle(-75 - self.matchParameters.ballValues.x, self.matchParameters.ballValues.y)
 
         defenderRobot.y = self.prepareRobotVerticalPosition(ballTriangle, currentRobotLocation)
         defenderRobot.x = -75 - ballTriangle.thalesTheoremHorizontalValue(defenderRobot.y)
+
+        if self.matchParameters.ballValues.x > 0:
+            defenderRobot.x = -30
+            defenderRobot.y = self.matchParameters.ballValues.y
 
         if defenderRobot.x < -60 and (-35 < defenderRobot.y < 35):
             if defenderRobot.x < -60:
