@@ -15,12 +15,20 @@ class Strategy:
     def main_strategy(self):
         robots = [Entity(index=i) for i in range(NUM_BOTS)]
         robots[0] = GoalKeeper(self.matchParameters).setGoalKeeperCoordinates()
-        robots[1] = Defender(self.matchParameters, 1, self.defenderRobotCanAttack).setDefenderCoordinates()\
-            if not self.matchParameters.isYellowTeam \
-            else Attacker(self.matchParameters, 1).setAttackerCoordinates()
-        robots[2] = Attacker(self.matchParameters, 2).setAttackerCoordinates() \
-            if not self.matchParameters.isYellowTeam \
-            else Defender(self.matchParameters, 2, self.defenderRobotCanAttack).setDefenderCoordinates()
+        if self.matchParameters.isYellowTeam:
+            if self.matchParameters.yellowRobotValues[1].x < self.matchParameters.yellowRobotValues[2].x:
+                robots[1] = Attacker(self.matchParameters, 1).setAttackerCoordinates()
+                robots[2] = Defender(self.matchParameters, 2, self.defenderRobotCanAttack).setDefenderCoordinates()
+            else:
+                robots[1] = Defender(self.matchParameters, 1, self.defenderRobotCanAttack).setDefenderCoordinates()
+                robots[2] = Attacker(self.matchParameters, 2).setAttackerCoordinates()
+        else:
+            if self.matchParameters.yellowRobotValues[1].x > self.matchParameters.yellowRobotValues[2].x:
+                robots[1] = Attacker(self.matchParameters, 1).setAttackerCoordinates()
+                robots[2] = Defender(self.matchParameters, 2, self.defenderRobotCanAttack).setDefenderCoordinates()
+            else:
+                robots[1] = Defender(self.matchParameters, 1, self.defenderRobotCanAttack).setDefenderCoordinates()
+                robots[2] = Attacker(self.matchParameters, 2).setAttackerCoordinates()
 
         return robots
 
