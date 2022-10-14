@@ -34,8 +34,6 @@ if __name__ == "__main__":
 
         teamsParameters = MatchParameters(vision.get_field_data())
 
-        # ref_data["game_on"] = True
-
         if ref_data["game_on"]:
             objectives = Strategy(teamsParameters, "default").main_strategy()
             actuator.send_all(teamsParameters.controller(teamsParameters.yellowRobotValues
