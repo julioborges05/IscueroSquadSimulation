@@ -23,7 +23,7 @@ class Strategy:
                 robots[1] = Defender(self.matchParameters, 1, self.defenderRobotCanAttack).setDefenderCoordinates()
                 robots[2] = Attacker(self.matchParameters, 2).setAttackerCoordinates()
         else:
-            if self.matchParameters.yellowRobotValues[1].x > self.matchParameters.yellowRobotValues[2].x:
+            if self.matchParameters.blueRobotValues[1].x > self.matchParameters.blueRobotValues[2].x:
                 robots[1] = Attacker(self.matchParameters, 1).setAttackerCoordinates()
                 robots[2] = Defender(self.matchParameters, 2, self.defenderRobotCanAttack).setDefenderCoordinates()
             else:
