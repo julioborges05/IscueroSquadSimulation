@@ -1,3 +1,5 @@
+import sys
+
 from Controllers.MatchParameters import MatchParameters
 from Strategies.MainStrategy import Strategy
 
@@ -5,8 +7,19 @@ from bridge import (Actuator, Replacer, Vision, Referee)
 
 if __name__ == "__main__":
 
-    # Choose team (my robots are yellow)
-    isYellowTeam = False
+    try:
+        team = sys.argv[1]
+
+        if team != "yellow" and team != "blue":
+            sys.exit()
+    except:
+        print("Selecione time corretamente")
+        sys.exit()
+
+    if team == "yellow":
+        isYellowTeam = True
+    else:
+        isYellowTeam = False
 
     # Initialize all clients
     actuator = Actuator(isYellowTeam, "127.0.0.1", 20011)

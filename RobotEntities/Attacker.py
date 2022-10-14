@@ -13,20 +13,35 @@ class Attacker:
     def setAttackerCoordinates(self):
         attackerRobot = Entity()
 
-        if self.matchParameters.ballValues.x > 0:
-            if self.matchParameters.ballValues.y > 0:
-                triangle = Triangle((85 - self.currentRobotLocation.x), (10 - self.currentRobotLocation.y))
-                attackerRobot.x = self.matchParameters.ballValues.x
-                attackerRobot.y = self.currentRobotLocation.y + triangle\
-                    .thalesTheoremVerticalValue(self.matchParameters.ballValues.x - self.currentRobotLocation.x)
-            if self.matchParameters.ballValues.y < 0:
-                triangle = Triangle((85 - self.currentRobotLocation.x), (-10 - self.currentRobotLocation.y))
-                attackerRobot.x = self.matchParameters.ballValues.x
-                attackerRobot.y = self.currentRobotLocation.y + triangle\
-                    .thalesTheoremVerticalValue(self.matchParameters.ballValues.x - self.currentRobotLocation.x)
+        if not self.matchParameters.isYellowTeam:
+            if self.matchParameters.ballValues.x > 0:
+                if self.matchParameters.ballValues.y > 0:
+                    triangle = Triangle((85 - self.currentRobotLocation.x), (10 - self.currentRobotLocation.y))
+                    attackerRobot.x = self.matchParameters.ballValues.x
+                    attackerRobot.y = self.currentRobotLocation.y + triangle\
+                        .thalesTheoremVerticalValue(self.matchParameters.ballValues.x - self.currentRobotLocation.x)
+                if self.matchParameters.ballValues.y < 0:
+                    triangle = Triangle((85 - self.currentRobotLocation.x), (-10 - self.currentRobotLocation.y))
+                    attackerRobot.x = self.matchParameters.ballValues.x
+                    attackerRobot.y = self.currentRobotLocation.y + triangle\
+                        .thalesTheoremVerticalValue(self.matchParameters.ballValues.x - self.currentRobotLocation.x)
+            else:
+                attackerRobot.y = -1 * (self.matchParameters.ballValues.y / 2)
+                attackerRobot.x = 10
         else:
-            attackerRobot.y = -1 * (self.matchParameters.ballValues.y / 2)
-            attackerRobot.x = 10
-
+            if self.matchParameters.ballValues.x < 0:
+                if self.matchParameters.ballValues.y > 0:
+                    triangle = Triangle((-85 - self.currentRobotLocation.x), (10 - self.currentRobotLocation.y))
+                    attackerRobot.x = self.matchParameters.ballValues.x
+                    attackerRobot.y = self.currentRobotLocation.y + triangle\
+                        .thalesTheoremVerticalValue(self.matchParameters.ballValues.x - self.currentRobotLocation.x)
+                if self.matchParameters.ballValues.y < 0:
+                    triangle = Triangle((-85 - self.currentRobotLocation.x), (-10 - self.currentRobotLocation.y))
+                    attackerRobot.x = self.matchParameters.ballValues.x
+                    attackerRobot.y = self.currentRobotLocation.y + triangle\
+                        .thalesTheoremVerticalValue(self.matchParameters.ballValues.x - self.currentRobotLocation.x)
+            else:
+                attackerRobot.y = -1 * (self.matchParameters.ballValues.y / 2)
+                attackerRobot.x = -10
 
         return attackerRobot
