@@ -12,6 +12,21 @@ class Attacker:
 
     def setAttackerCoordinates(self):
         attackerRobot = Entity()
+        if self.matchParameters.isYellowTeam:
+            if self.matchParameters.ballValues.x < 0 and self.currentRobotLocation.x > self.matchParameters.ballValues.x:
+                attackerRobot.x = self.matchParameters.ballValues.x
+                attackerRobot.y = self.matchParameters.ballValues.y
+                return attackerRobot
+        else:
+            if self.matchParameters.ballValues.x > 0 and self.currentRobotLocation.x < self.matchParameters.ballValues.x:
+                attackerRobot.x = self.matchParameters.ballValues.x
+                attackerRobot.y = self.matchParameters.ballValues.y
+                return attackerRobot
+
+        return self.defaultAttack()
+
+    def defaultAttack(self):
+        attackerRobot = Entity()
 
         if not self.matchParameters.isYellowTeam:
             if self.matchParameters.ballValues.x > 0:
