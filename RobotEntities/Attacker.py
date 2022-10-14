@@ -41,7 +41,7 @@ class Attacker:
                     attackerRobot.y = self.currentRobotLocation.y + triangle\
                         .thalesTheoremVerticalValue(self.matchParameters.ballValues.x - self.currentRobotLocation.x)
             else:
-                attackerRobot.y = -1 * (self.matchParameters.ballValues.y / 2)
+                attackerRobot.y = (self.matchParameters.ballValues.y * 1.25)
                 attackerRobot.x = 10
         else:
             if self.matchParameters.ballValues.x < 0:
@@ -56,7 +56,7 @@ class Attacker:
                     attackerRobot.y = self.currentRobotLocation.y + triangle\
                         .thalesTheoremVerticalValue(self.matchParameters.ballValues.x - self.currentRobotLocation.x)
             else:
-                attackerRobot.y = -1 * (self.matchParameters.ballValues.y / 2)
+                attackerRobot.y = (self.matchParameters.ballValues.y * 1.25)
                 attackerRobot.x = -10
 
         return attackerRobot
