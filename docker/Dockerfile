@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y \
     qt5-default \
     sudo \
     protobuf-compiler \
-    -qq build-essential \
     qtdeclarative5-dev \
     libeigen3-dev \
     libprotobuf-dev \
