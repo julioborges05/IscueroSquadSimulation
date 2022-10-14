@@ -41,17 +41,6 @@ if __name__ == "__main__":
                                                          else teamsParameters.blueRobotValues,
                                                          objectives))
 
-        elif ref_data["foul"] == 1:
-            if teamsParameters.isYellowTeam:
-                replacement.place(0, 75, 0, 90)
-                replacement.place(1, -10, 30, 0)
-                replacement.place(2, -20, -30, 0)
-            else:
-                replacement.place(0, -75, 0, 90)
-                replacement.place(1, 10, 30, 0)
-                replacement.place(2, 20, -30, 0)
-            replacement.send()
-
         elif ref_data["foul"] != 7:
             # foul behaviour
             actuator.stop()
