@@ -44,7 +44,7 @@ if __name__ == "__main__":
         elif ref_data["foul"] == 1:
             if ref_data["yellow"] == False:
                 replacement.place(0, -75, 0, 90)
-                replacement.place(1, 30, 0, 0)
+                replacement.place(1, 25, -5, 0)
                 replacement.place(2, -20, -30, 0)
             else:
                 replacement.place(0, -75, 0, 90)
