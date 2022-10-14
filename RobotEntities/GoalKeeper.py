@@ -28,13 +28,15 @@ class GoalKeeper:
         return Triangle(bigTriangleHorizontalValue, bigTriangleVerticalValue)
 
     def __getSmallTriangleValues(self, bigTriangle):
-        smallTriangleHorizontalValue = -75 - (self.matchParameters.ballValues.x - bigTriangle.horizontalValue)
+        goalHorizontalPosition = -75 if not self.matchParameters.isYellowTeam else 75
+        smallTriangleHorizontalValue = goalHorizontalPosition - (self.matchParameters.ballValues.x - bigTriangle.horizontalValue)
         smallTriangleVerticalValue = (smallTriangleHorizontalValue * bigTriangle.verticalValue) / bigTriangle.horizontalValue
 
         return Triangle(smallTriangleHorizontalValue, smallTriangleVerticalValue)
 
     def __getGoalKeeperVerticalValue(self, isBallGoingDown, smallTriangleVerticalValue):
-        robotVerticalPosition = self.matchParameters.ballValues.y if self.matchParameters.ballValues.vx > 0 \
+        isBallGoingToGoalInHorizontalDirection = self.matchParameters.ballValues.vx > 0 if not self.matchParameters.isYellowTeam else self.matchParameters.ballValues.vx < 0
+        robotVerticalPosition = self.matchParameters.ballValues.y if isBallGoingToGoalInHorizontalDirection \
             else (smallTriangleVerticalValue - 20) if isBallGoingDown else (smallTriangleVerticalValue + 20)
 
         if robotVerticalPosition > 20:
