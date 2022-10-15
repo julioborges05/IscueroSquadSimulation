@@ -42,10 +42,16 @@ if __name__ == "__main__":
                                                          objectives))
 
         elif ref_data["foul"] != 7:
-            if not isYellowTeam:
-                Strategy(teamsParameters, "default").replaceForBlueTeam(ref_data, replacement)
-            else:
-                Strategy(teamsParameters, "default").replaceForYellowTeam(ref_data, replacement)
+            if ref_data["foul"] == 1:
+                if not ref_data["yellow"]:
+                    replacement.place(0, 75, 0, 90)
+                    replacement.place(1, -10, 30, 0)
+                    replacement.place(2, -20, -30, 0)
+                else:
+                    replacement.place(0, 75, 0, 90)
+                    replacement.place(1, -25, 5, 15)
+                    replacement.place(2, 40, -30, 0)
+                replacement.send()
             # foul behaviour
             actuator.stop()
 
