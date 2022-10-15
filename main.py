@@ -42,6 +42,11 @@ if __name__ == "__main__":
                                                          objectives))
 
         elif ref_data["foul"] != 7:
+            if ref_data["foul"] == 2 and not ref_data["yellow"]:
+                replacement.place(0, -75, 0, 90)
+                replacement.place(1, -65, -40, 30)
+                replacement.place(2, -40, -30, 0)
+                replacement.send()
             if ref_data["foul"] == 4:
                 replacement.place(0, -75, 0, 90)
                 replacement.place(1, -25, -5, 15)
