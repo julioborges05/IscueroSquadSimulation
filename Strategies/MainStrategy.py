@@ -46,3 +46,26 @@ class Strategy:
 
         return robot
 
+    def replaceForBlueTeam(self, ref_data, replacement):
+        if ref_data["foul"] == 1:
+            if not ref_data["yellow"]:
+                replacement.place(0, -75, 0, 90)
+                replacement.place(1, 25, -5, 15)
+                replacement.place(2, -40, -30, 0)
+            else:
+                replacement.place(0, -75, 0, 90)
+                replacement.place(1, 10, 30, 0)
+                replacement.place(2, 20, -30, 0)
+            replacement.send()
+
+    def replaceForYellowTeam(self, ref_data, replacement):
+        if ref_data["foul"] == 1:
+            if not ref_data["yellow"]:
+                replacement.place(0, 75, 0, 90)
+                replacement.place(1, -10, 30, 0)
+                replacement.place(2, -20, -30, 0)
+            else:
+                replacement.place(0, 75, 0, 90)
+                replacement.place(1, -25, 5, 15)
+                replacement.place(2, 40, -30, 0)
+            replacement.send()
