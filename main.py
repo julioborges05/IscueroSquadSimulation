@@ -55,7 +55,7 @@ if __name__ == "__main__":
             if ref_data["foul"] == 1:
                 if not ref_data["yellow"]:
                     replacement.place(0, -75, 0, 90)
-                    replacement.place(1, 25, -5, 15)
+                    replacement.place(1, 25, -5, 25)
                     replacement.place(2, -40, -30, 0)
                 else:
                     replacement.place(0, -75, 0, 90)
