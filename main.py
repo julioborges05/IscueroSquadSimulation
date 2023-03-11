@@ -7,6 +7,14 @@ from bridge import (Actuator, Replacer, Vision, Referee)
 
 if __name__ == "__main__":
 
+    PENALTY = 1
+    GOAL_KICK = 2
+    FREEBALL = 3
+    KICKOFF = 4
+    GAME_STOPPED = 5
+    # FOUL_SECRET = 6
+    GAME_HALTED = 7
+
     try:
         team = sys.argv[1]
 
@@ -41,18 +49,19 @@ if __name__ == "__main__":
                                                          else teamsParameters.blueRobotValues,
                                                          objectives))
 
-        elif ref_data["foul"] != 7:
-            if ref_data["foul"] == 2 and not ref_data["yellow"]:
+        elif ref_data["foul"] != GAME_HALTED:
+            # foul behaviour
+            if ref_data["foul"] == GOAL_KICK and not ref_data["yellow"]:
                 replacement.place(0, -75, 0, 90)
                 replacement.place(1, -65, -40 if teamsParameters.ballValues.y < 0 else 40, 30 if teamsParameters.ballValues.y < 0 else -30)
-                replacement.place(2, -40, -30, 0)
+                replacement.place(2, -40, -10, 0)
                 replacement.send()
-            if ref_data["foul"] == 4:
+            if ref_data["foul"] == KICKOFF:
                 replacement.place(0, -75, 0, 90)
                 replacement.place(1, -25, -5, 15)
                 replacement.place(2, -40, -30, 0)
                 replacement.send()
-            if ref_data["foul"] == 1:
+            if ref_data["foul"] == PENALTY:
                 if not ref_data["yellow"]:
                     replacement.place(0, -75, 0, 90)
                     replacement.place(1, 25, -5, 25)
@@ -62,7 +71,7 @@ if __name__ == "__main__":
                     replacement.place(1, 10, 30, 0)
                     replacement.place(2, 20, -30, 0)
                 replacement.send()
-            # foul behaviour
+
             actuator.stop()
 
         else:

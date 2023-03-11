@@ -32,20 +32,6 @@ class Strategy:
 
         return robots
 
-    def setAllBotsToBallCoordinates(self):
-        objectives = [Entity(index=i) for i in range(NUM_BOTS)]
-        for obj in objectives:
-            obj.x = self.matchParameters.ballValues.x
-            obj.y = self.matchParameters.ballValues.y
-
-        return objectives
-
-    def setRobotToBallCoordinates(self, robot):
-        robot.x = self.matchParameters.ballValues.x
-        robot.y = self.matchParameters.ballValues.y
-
-        return robot
-
     def replaceForBlueTeam(self, ref_data, replacement):
         if ref_data["foul"] == 1:
             if not ref_data["yellow"]:
